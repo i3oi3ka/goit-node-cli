@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/i3oi3ka/goit-node-cli/issues"
   },
-  "homepage": "https://github.com/i3oi3ka/goit-node-cli#readme"
+  "homepage": "https://github.com/i3oi3ka/goit-node-cli#readme",
+  "dependencies": {
+    "commander": "^14.0.2"
+  }
 }
