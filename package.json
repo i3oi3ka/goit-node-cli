@@ -22,8 +22,8 @@
   "homepage": "https://github.com/i3oi3ka/goit-node-cli#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "detect-file-encoding-and-language": "^2.4.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "detect"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
