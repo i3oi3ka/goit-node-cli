@@ -8,7 +8,7 @@ import {
   updateContact,
 } from "./contact.js";
 
-const invokeContacts = async ({ action, id, ...data }) => {
+const invokeContacts = async ({ action, id, name, email, phone }) => {
   switch (action) {
     case "list":
       const contacts = await listContacts();
@@ -23,7 +23,7 @@ const invokeContacts = async ({ action, id, ...data }) => {
       const addedContact = await addContact(name, email, phone);
       return console.table(addedContact);
     case "updateContact":
-      const updatedContact = await updateContact(id, data);
+      const updatedContact = await updateContact(id, name, email, phone);
       return console.log(updatedContact);
     default:
       console.log("Unknown action");

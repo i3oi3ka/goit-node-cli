@@ -19,7 +19,7 @@ async function getContactById(contactId) {
 }
 
 async function removeContact(contactId) {
-  const contacts = listContacts();
+  const contacts = await listContacts();
   const index = contacts.findIndex((contact) => contact.id === id);
   if (index === -1) return null;
   const { result } = contacts.slice(index, 1);
@@ -28,20 +28,22 @@ async function removeContact(contactId) {
 }
 
 async function addContact(name, email, phone) {
-  const contacts = listContacts();
+  const contacts = await listContacts();
   const newContact = {
     id: nanoid(),
     name,
     email,
     phone,
   };
+  console.log(contacts);
+
   contacts.push(newContact);
   await updateContacts(contacts);
   return newContact;
 }
 
 async function updateContact(id, payload) {
-  const contacts = listContacts();
+  const contacts = await listContacts();
   const index = contacts.findIndex((contact) => contact.id === id);
   if (index === -1) return null;
   contacts[index] = { ...contacts[index], ...payload };
