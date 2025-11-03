@@ -1,46 +1,48 @@
-// import fs from "fs";
+import yargs from "yargs";
+import { program } from "commander";
+import {
+  listContacts,
+  getContactById,
+  removeContact,
+  addContact,
+  updateContact,
+} from "./contact.js";
 
-// console.log("Hello, GoIT Node.js CLI");
-
-// fs.readFile("./files/file.txt", "utf8", (err, data) => {
-//   if (err) {
-//     console.error("Error reading file:", err);
-//     return;
-//   }
-//   console.log("File contents:", data);
-// });
-
-import fs from "node:fs/promises";
-import DetectFileEncodingAndLanguage from "detect-file-encoding-and-language";
-
-// fs.readFile("./files/file.txt", "utf8")
-//   .then((data) => {
-//     console.log("File contents:", data);
-//   })
-//   .catch((err) => {
-//     console.error("Error reading file:", err);
-//   });
-
-// const buffer = await fs.readFile("./files/file.txt", "utf8");
-// console.log("File contents:", buffer);
-
-const fileOperations = async () => {
-  try {
-    const { encoding } = await DetectFileEncodingAndLanguage(
-      "./files/file.txt"
-    );
-    const buffer = await fs.readFile("./files/file.txt", encoding);
-    console.log("File contents:", buffer);
-  } catch (err) {
-    console.error("Error reading file:", err);
+const invokeContacts = async ({ action, id, ...data }) => {
+  switch (action) {
+    case "list":
+      const contacts = await listContacts();
+      return console.table(contacts);
+    case "get":
+      const contact = await getContactById(id);
+      return console.table(contact);
+    case "remove":
+      const removedContact = await removeContact(id);
+      return console.table(removedContact);
+    case "add":
+      const addedContact = await addContact(name, email, phone);
+      return console.table(addedContact);
+    case "updateContact":
+      const updatedContact = await updateContact(id, data);
+      return console.log(updatedContact);
+    default:
+      console.log("Unknown action");
   }
 };
 
-const fileOperationsAdditional = async () => {
-  const result = await fs.appendFile("./files/file.txt", "\nAppended text.");
-  console.log("File appended:", result);
-};
+// const { argv } = yargs(process.argv);
+// const { _, $0, ...params } = argv;
+// console.log(params);
+// invokeContacts(params);
 
-// Виклик функції
-fileOperations();
-fileOperationsAdditional();
+program
+  .option("-a, --action <type>")
+  .option("-i, --id <type>")
+  .option("-n, --name <type>")
+  .option("-e, --email <type>")
+  .option("-p, --phone <type>");
+
+program.parse();
+
+const opt = program.opts();
+invokeContacts(opt);
