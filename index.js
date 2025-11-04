@@ -30,11 +30,6 @@ const invokeContacts = async ({ action, id, name, email, phone }) => {
   }
 };
 
-// const { argv } = yargs(process.argv);
-// const { _, $0, ...params } = argv;
-// console.log(params);
-// invokeContacts(params);
-
 program
   .option("-a, --action <type>")
   .option("-i, --id <type>")
